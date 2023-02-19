@@ -25,7 +25,7 @@ function ContactForm({ onSubmit }) {
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    onSubmit(name, number);
+    onSubmit({ name, number });
     resetInput();
   };
 

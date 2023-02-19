@@ -17,22 +17,26 @@ function App() {
 
   const [filter, setFilter] = useState('');
 
-  const addContact = (name, number) => {
+  const addContact = newContact => {
+    if (
+      contacts.some(
+        ({ contact }) =>
+          contact.name.toLowerCase() === newContact.name.toLowerCase()
+      )
+    ) {
+      alert(`${newContact.name} is already in contacts.`);
+      return;
+    }
     const contact = {
       id: shortid.generate(),
-      name,
-      number,
+      ...newContact,
     };
     if (
       contacts.some(
-        contact => contact.name.toLowerCase() === name.toLowerCase()
+        ({ contact }) => contact.number === newContact.contact.number
       )
     ) {
-      alert(`${name} is already in contacts.`);
-      return;
-    }
-    if (contacts.some(contact => contact.number === number)) {
-      alert(`${number} is already in contacts.`);
+      alert(`${newContact.number} is already in contacts.`);
       return;
     } else {
       setContacts(prevContacts => [contact, ...prevContacts]);
